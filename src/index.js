@@ -22,6 +22,9 @@ const game = new Phaser.Game(config);
 let player;
 let cursors;
 
+let score = 0;
+let scoreText;
+
 function preload() {
   this.load.image('sky', 'assets/sky.png');
   this.load.image('ground', 'assets/platform.png');
@@ -84,6 +87,7 @@ function create() {
   this.physics.add.overlap(player, stars, collectStar, null, this);
 
   cursors = this.input.keyboard.createCursorKeys();
+  scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 }
 
 function update() {
@@ -104,4 +108,7 @@ function update() {
 
 function collectStar(player, star) {
   star.disableBody(true, true);
+
+  score += 10;
+  scoreText.setText('Score: ' + score);
 }
